@@ -8,6 +8,6 @@ public class DevOPS {
 	
     @GetMapping("/devops")
     public String welcomeMessage() {
-    	return "Hello Mulasoft";
+    	return "Hello Mulasofttechnologies";
     }
 }
