@@ -53,13 +53,41 @@
 	<build>
 		<plugins>
 			<plugin>
+			  <artifactId>maven-surefire-plugin</artifactId>
+			  <configuration>
+			   <argLine>${argLine}</argLine>
+			  </configuration>
+			 </plugin>			
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-			  <groupId>org.jacoco</groupId>
-			  <artifactId>jacoco-maven-plugin</artifactId>
-			  <version>0.8.6-SNAPSHOT</version>
+			 <plugin>
+			    <groupId>org.jacoco</groupId>
+			    <artifactId>jacoco-maven-plugin</artifactId>
+			    <version>0.5.10.201208310627</version>
+			    <configuration>
+			        <skip>${maven.test.skip}</skip>
+			        <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+			        <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+			        <output>file</output>
+			        <append>true</append>
+			    </configuration>
+			    <executions>
+			        <execution>
+			            <id>jacoco-initialize</id>
+			            <goals>
+			                <goal>prepare-agent</goal>
+			            </goals>
+			        </execution>
+			        <execution>
+			            <id>jacoco-site</id>
+			            <phase>verify</phase>
+			            <goals>
+			                <goal>report</goal>
+			            </goals>
+			        </execution>
+			    </executions>
 			</plugin>
 		</plugins>
 	</build>
