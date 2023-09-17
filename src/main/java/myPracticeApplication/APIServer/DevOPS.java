@@ -11,7 +11,7 @@ public class DevOPS {
     	return "Hello Mulasofttechnologies  this is tesing getting tools";
     }
     @GetMapping("/devops/1")
-    public String welcomeMessage() {
+    public String welcomeMessages() {
     	return "Hello Mulasofttechnologies  this is tesing getting tools";
     }	
 }
