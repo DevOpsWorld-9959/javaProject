@@ -18,6 +18,14 @@
 		<java.version>17</java.version>
 		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
+	<distributionManagement>
+	  <repository>
+	    <id>maven-releases</id>
+	    <name>maven-releases</name>	  
+	    <!-- CHANGE HERE by your team Nexus server -->
+	    <url>http://localhost:8081/repository/maven-releases/</url>
+	  </repository>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -86,6 +94,12 @@
 			 
 		</plugins>
 	</build>
-
+	<repositories>
+	        <repository>
+		  <id>maven-releases</id>
+		  <name>maven-releases</name>
+		  <url>http://localhost:8081/repository/maven-releases/</url>
+		</repository>
+	<repositories>	
 
 </project>
