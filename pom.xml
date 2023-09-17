@@ -69,7 +69,7 @@
 			    <configuration>
 			        <skip>${maven.test.skip}</skip>
 			        <destFile>${basedir}/target/site/jacoco/jacoco.xml</destFile>
-			        <dataFile>${basedir}target/site/jacoco/jacoco.xml/dataFile>
+			        <dataFile>${basedir}target/site/jacoco/jacoco.xml</dataFile>
 			        <output>file</output>
 			        <append>true</append>
 			    </configuration>
