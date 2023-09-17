@@ -25,6 +25,11 @@
 	    <!-- CHANGE HERE by your team Nexus server -->
 	    <url>http://localhost:8081/repository/maven-releases/</url>
 	  </repository>
+	  <snapshotRepository>
+	    <id>maven-snapshots</id>
+	    <!-- CHANGE HERE by your team Nexus server -->
+	    <url>http://localhost:8081/repository/maven-releases/</url>
+	  </snapshotRepository>
 	</distributionManagement>
 	<dependencies>
 		<dependency>
