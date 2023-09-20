@@ -23,7 +23,7 @@
 	    <id>maven-releases</id>
 	    <name>maven-releases</name>	  
 	    <!-- CHANGE HERE by your team Nexus server -->
-	    <url>http://10.0.0.133:8081/repository/maven-releases/</url>
+	    <url>http://localhost:8081/repository/maven-releases/</url>
 	  </repository>
 	  <snapshotRepository>
 	    <id>maven-snapshots</id>
