@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>myPracticeApplication</groupId>
 	<artifactId>APIServer</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<name>APIServer</name>
 	<description>Demo project for Spring Boot</description>
@@ -23,12 +23,12 @@
 	    <id>maven-releases</id>
 	    <name>maven-releases</name>	  
 	    <!-- CHANGE HERE by your team Nexus server -->
-	    <url>http://34.234.164.59:8081/repository/maven-releases/</url>
+	    <url>http://localhost:8081/repository/maven-releases/</url>
 	  </repository>
 	  <snapshotRepository>
 	    <id>maven-snapshots</id>
 	    <!-- CHANGE HERE by your team Nexus server -->
-	    <url>http://34.234.164.59:8081/repository/maven-snapshots/</url>
+	    <url>http://localhost:8081/repository/maven-snapshots/</url>
 	  </snapshotRepository>
 	</distributionManagement>
 	<dependencies>
@@ -103,7 +103,7 @@
 	        <repository>
 		  <id>maven-snapshots</id>
 		  <name>maven-snapshots</name>
-		  <url>http://34.234.164.59:8081/repository/maven-releases/</url>
+		  <url>http://localhost:8081/repository/maven-releases/</url>
 		</repository>
 	</repositories>	
 
