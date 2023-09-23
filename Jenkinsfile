@@ -44,6 +44,18 @@ pipeline {
               }
             }
         }
+        stage("Quality Gates"){
+            steps{
+              script{
+                  timeout(time: 1,unit:'HOURS'){
+                    def qg = waitForQualityGate()
+                    if(qg.status != 'OK'){
+                        error "pipeline aborted due to quality gates faled ${qg.status}"
+                    }
+                }                
+              }
+            }
+        }
         stage("ArtifactBuild"){
             steps{
                 sh "mvn clean package -DskipTests=true"
