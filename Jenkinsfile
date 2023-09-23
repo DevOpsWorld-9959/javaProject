@@ -40,7 +40,7 @@ pipeline {
             steps{
              
               withSonarQubeEnv('sonar'){
-                sh"$SONAR_HOME/bin/sonar-scanner    -Dsonar.projectName=Ekart -Dsonar.projectKey=Ekart -Dsonar.java.binaries=. "
+                sh"$SONAR_HOME/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=test -Dsonar.host.url=http://localhost:9001/   -Dsonar.projectName=Ekart -Dsonar.projectKey=Ekart -Dsonar.java.binaries=. "
               }
             }
         }
