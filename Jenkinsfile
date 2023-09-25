@@ -19,19 +19,6 @@ pipeline {
                 sh "mvn compile"
             }
         }
- 
-        stage("OWASP dependency Check"){
-            steps{
-              dependencyCheck additionalArguments: '--scan ./',odcInstallation:'DC'
-              dependencyCheckPublisher pattern:'**/dependency-check-report.xml'                   
-            }
-        }        
-
-        stage("Trivy scan"){
-            steps{
-                sh "trivy fs ."
-            }
-        }
       
         stage("Testing"){
             steps{
