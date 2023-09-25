@@ -40,24 +40,10 @@ pipeline {
             steps{
              
               withSonarQubeEnv('sonar'){
-                sh"$SONAR_HOME/bin/sonar-scanner -Dsonar.login=admin -Dsonar.password=test -Dsonar.host.url=http://localhost:9001/   -Dsonar.projectName=Ekart -Dsonar.projectKey=Ekart -Dsonar.java.binaries=. "
+                sh"$SONAR_HOME/bin/sonar-scanner  -Dsonar.host.url=http://localhost:9001/   -Dsonar.projectName=Ekart -Dsonar.projectKey=Ekart -Dsonar.java.binaries=. "
               }
             }
         }
-       /*
-       stage("Quality Gates"){
-            steps{
-              script{
-                  timeout(time: 10,unit:'SECONDS'){
-                    def qg = waitForQualityGate()
-                    if(qg.status != 'OK'){
-                        error "pipeline aborted due to quality gates faled ${qg.status}"
-                    }
-                }                
-              }
-            }
-        }
-        */
         stage("ArtifactBuild"){
             steps{
                 sh "mvn clean package -DskipTests=true"
