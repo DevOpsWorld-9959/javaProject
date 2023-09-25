@@ -56,11 +56,12 @@ pipeline {
                 }
             }
         }
-        stage("Build Docker Image"){
+        stage("Build Docker Image push to Repo"){
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'DOCKER', toolName: 'docker') {
-                        
+                        sh "docker build -t myappdocker -f  docker/Dockerfile  ."
+                        sh "docker tag myappdocker kirankumarbandari/myappdocker:latest"
                     }
                 }
             }
