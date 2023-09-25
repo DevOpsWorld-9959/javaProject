@@ -19,7 +19,18 @@ pipeline {
                 sh "mvn compile"
             }
         }
-      
+        stage("OWASP dependency Check"){
+            steps{
+              dependencyCheck additionalArguments: '--scan ./',odcInstallation:'DC'
+              dependencyCheckPublisher pattern:'**/dependency-check-report.xml'                   
+            }
+        }        
+
+        stage("Trivy scan"){
+            steps{
+                sh "trivy fs ."
+            }
+        }      
         stage("Testing"){
             steps{
                 sh "mvn test"
@@ -42,6 +53,15 @@ pipeline {
             steps{
                configFileProvider([configFile(fileId: '26b03cc5-6fb1-47f0-87d1-aafb52572e2f', targetLocation: 'myartigactdeploy', variable: 'myartigactdeploy')]) {
                   sh "mvn -s $myartigactdeploy clean  deploy -DskipTests=true"
+                }
+            }
+        }
+        stage("Build Docker Image"){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'DOCKER', toolName: 'docker') {
+                        
+                    }
                 }
             }
         }
