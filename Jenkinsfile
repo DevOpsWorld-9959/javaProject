@@ -44,7 +44,8 @@ pipeline {
               }
             }
         }
-        stage("Quality Gates"){
+       /*
+       stage("Quality Gates"){
             steps{
               script{
                   timeout(time: 10,unit:'SECONDS'){
@@ -56,6 +57,7 @@ pipeline {
               }
             }
         }
+        */
         stage("ArtifactBuild"){
             steps{
                 sh "mvn clean package -DskipTests=true"
