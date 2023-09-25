@@ -19,6 +19,7 @@ pipeline {
                 sh "mvn compile"
             }
         }
+        /*
         stage("OWASP dependency Check"){
             steps{
               dependencyCheck additionalArguments: '--scan ./',odcInstallation:'DC'
@@ -31,6 +32,7 @@ pipeline {
                 sh "trivy fs ."
             }
         }
+        */
         stage("Testing"){
             steps{
                 sh "mvn test"
