@@ -7,6 +7,7 @@ pipeline {
     } 
     environment{
         SONAR_HOME = tool "sonar-scanner"
+        mvnHome = tool "maven3"
     }
     stages {
         stage('Git CheckOut') {
@@ -38,12 +39,25 @@ pipeline {
         }        
        stage("SonarQube Analysis"){
             steps{
-             
+                  
               withSonarQubeEnv('sonar'){
-                sh "$SONAR_HOME/bin/sonar-scanner  -Dsonar.host.url=http://localhost:9001/   -Dsonar.projectName=Ekart -Dsonar.projectKey=Ekart -Dsonar.java.binaries=. "
+                  sh "$mvnHome/bin/mvn sonar:sonar"
+               // sh "$SONAR_HOME/bin/sonar-scanner  -Dsonar.host.url=http://localhost:9001/   -Dsonar.projectName=Ekart -Dsonar.projectKey=Ekart -Dsonar.java.binaries=. "
               }
             }
         }
+       /* stage("Quality Gates"){
+            steps{
+              script{
+                 timeout(time:1,unit:"HOURS"){
+                     def qg = waitForQualityGate()
+                     if(qg.status !=  "OK"){
+                         error "Pipeline aborted due to quality gates failed."
+                     }
+                 }
+              }
+            }
+        }*/
         stage("ArtifactBuild"){
             steps{
                 sh "mvn clean package -DskipTests=true"
