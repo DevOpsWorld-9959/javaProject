@@ -20,18 +20,24 @@ pipeline {
                 sh "mvn compile"
             }
         }
-        stage("OWASP dependency Check"){
-            steps{
-              dependencyCheck additionalArguments: '--scan ./',odcInstallation:'DC'
-              dependencyCheckPublisher pattern:'**/dependency-check-report.xml'                   
-            }
-        }        
-
-        stage("Trivy scan"){
-            steps{
-                sh "trivy fs ."
-            }
-        }      
+        stage("Parallel Execution OWAST/TRIVY"){
+            
+          parallel{
+              
+               stage("OWASP dependency Check"){
+                    steps{
+                      dependencyCheck additionalArguments: '--scan ./',odcInstallation:'DC'
+                      dependencyCheckPublisher pattern:'**/dependency-check-report.xml'                   
+                    }
+                }        
+        
+                stage("Trivy scan"){
+                    steps{
+                        sh "trivy fs ."
+                    }
+                } 
+           }     
+        }
         stage("Testing"){
             steps{
                 sh "mvn test"
@@ -46,7 +52,8 @@ pipeline {
               }
             }
         }
-       /* stage("Quality Gates"){
+        /*
+        stage("Quality Gates"){
             steps{
               script{
                  timeout(time:1,unit:"HOURS"){
@@ -73,9 +80,27 @@ pipeline {
         stage("Build Docker Image"){
             steps{
                 script{
+                    def imageName = "kirankumarbandari/myappdocker"
+                    env.imageName = "${imageName}"
+                    def oldImageID = sh( 
+                                            script: 'docker images -qf reference=\${imageName}:latest}',
+                                            returnStdout: true
+                                        )
+                    
                     withDockerRegistry(credentialsId: 'DOCKER', toolName: 'docker') {
-                        sh "docker build -t myappdocker -f  docker/Dockerfile  ."
-                        sh "docker tag myappdocker kirankumarbandari/myappdocker:latest"
+                        
+                        if('${oldImageID}' != ''){
+                           sh "docker rmi -f kirankumarbandari/myappdocker:latest"
+                           sh "docker rmi -f myappdocker"
+                           sh "docker build -t myappdocker -f  docker/Dockerfile  ."
+                           sh "docker tag myappdocker kirankumarbandari/myappdocker:latest"                           
+                        }else{
+                           sh "docker build -t myappdocker -f  docker/Dockerfile  ."
+                           sh "docker tag myappdocker kirankumarbandari/myappdocker:latest"                                                    
+                            
+                        }
+                        
+
                     }
                 }
             }
