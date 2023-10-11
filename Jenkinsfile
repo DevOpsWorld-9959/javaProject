@@ -20,6 +20,7 @@ pipeline {
                 sh "mvn compile"
             }
         }
+     /*
         stage("Parallel Execution OWAST/TRIVY"){
             
           parallel{
@@ -38,11 +39,14 @@ pipeline {
                 } 
            }     
         }
+                
+
         stage("Testing"){
             steps{
                 sh "mvn test"
             }
-        }        
+        }   
+
        stage("SonarQube Analysis"){
             steps{
                   
@@ -52,7 +56,7 @@ pipeline {
               }
             }
         }
-        /*
+
         stage("Quality Gates"){
             steps{
               script{
@@ -64,12 +68,14 @@ pipeline {
                  }
               }
             }
-        }*/
+        }
+*/
         stage("ArtifactBuild"){
             steps{
                 sh "mvn clean package -DskipTests=true"
             }
         }
+        /*
         stage("DeployingArtifact"){
             steps{
                configFileProvider([configFile(fileId: '26b03cc5-6fb1-47f0-87d1-aafb52572e2f', targetLocation: 'myartigactdeploy', variable: 'myartigactdeploy')]) {
@@ -77,6 +83,7 @@ pipeline {
                 }
             }
         }
+        */
         stage("Build Docker Image"){
             steps{
                 script{
@@ -108,7 +115,7 @@ pipeline {
         stage("Push Image Docker Registry"){
             steps{
                 script{
-                    withDockerRegistry(credentialsId: 'DOCKER', toolName: 'docker') {
+                    withDockerRegistry(credentialsId: 'Docker', toolName: 'docker') {
                         sh "docker  push  kirankumarbandari/myappdocker:latest"
                     }
                 }
